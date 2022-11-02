@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <link rel="stylesheet" href={{ url_for('static', filename='search_movie_display.css') }} />
+    </head>
+    <body>
+        <!--this is displaying the data for the movie that has been searched-->
+        <p>movie title: {{title}}</p>
+        <img src={{poster}} class="image">
+        <p>tagline: {{tagline}}</p>
+        <p>genre: {{genre}}</p>
+        <a class = "wiki" href={{link}}>link to wiki page</a>
+        <br>
+
+        <div class="search">
+            <form action="/search_movie_form" method="POST">
+                <input type="submit" value="search"/>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <link rel="stylesheet" href={{ url_for('static', filename='search_movie_form.css') }} />
+    </head>
+    <body>
+        <h2>search for movies</h2>
+        <form action="/search_movie_display" method="POST" class="search_form">
+            <input type="text" name="movie_name" id="movie_name"/>
+            <input type="submit" value="search movies"/>
+        </form>
+    </body>
+</html>

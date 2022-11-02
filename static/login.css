@@ -1,0 +1,27 @@
+/*this is for the body styling*/
+body {
+    font-family: Helvetica;
+    color: rgb(255, 255, 255);
+    background-color: rgb(27, 26, 26);
+    background-image: linear-gradient(rgb(42, 95, 106),rgb(30, 27, 74));
+    font-size: 12;
+    text-align: left;
+    padding: auto;
+}
+
+/*aligning all my plain text*/
+p {
+    text-align: center;
+}
+
+/*aligning my title*/
+h2 {
+    text-align: center;
+}
+
+.login {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+}

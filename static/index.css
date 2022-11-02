@@ -1,0 +1,69 @@
+/*this is for the body styling*/
+body {
+    font-family: Helvetica;
+    color: rgb(255, 255, 255);
+    background-color: rgb(27, 26, 26);
+    background-image: linear-gradient(rgb(42, 95, 106),rgb(30, 27, 74));
+    font-size: 12;
+    text-align: left;
+    padding: auto;
+}
+
+/*aligning all my plain text*/
+p {
+    text-align: center;
+}
+
+/*aligning my title*/
+h1 {
+    text-align: center;
+}
+
+/*styleling my image inad aligning it*/
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/*styling and aligning my buttons*/
+.button_group button {
+    background-color: rgb(255, 255, 255);
+    border: 1px rgb(165, 118, 165);
+    color: black;
+    padding: 10px, 24px;
+    cursor: pointer;
+    float: left;
+}
+
+.button_group button:not(:last-child) {
+    border-right: none;
+}
+
+.button_group after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.button_group button:hover {
+    background-color: purple;
+}
+
+.button_group {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/*formatting my wikipedia link*/
+.wiki {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
