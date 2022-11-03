@@ -96,7 +96,7 @@ def search_movie_display():
     #else:
         #return flask.redirect(flask.url_for('search_movie_form'))
 
-@app.route("/home")
+@app.route("/home", methods=['POST', 'GET'])
 def home():
     '''
     this function will define my home page and will be part 1 for this project

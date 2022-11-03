@@ -25,3 +25,9 @@ h2 {
     margin-right: auto;
     width: 10%;
 }
+
+/*formatting my home button*/
+.home_button {
+    display: flex;
+    justify-content: center;
+}

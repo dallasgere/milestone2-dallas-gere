@@ -42,3 +42,9 @@ h1 {
     margin-right: auto;
     width: 50%;
 }
+
+/*formatting my home button*/
+.home_button {
+    display: flex;
+    justify-content: center;
+}
