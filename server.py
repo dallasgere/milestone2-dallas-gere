@@ -93,8 +93,6 @@ def search_movie_display():
         poster = movie_dict["poster"],
         link = movie_dict["link"]
     )
-    #else:
-        #return flask.redirect(flask.url_for('search_movie_form'))
 
 @app.route("/home", methods=['POST', 'GET'])
 def home():
