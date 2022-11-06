@@ -1,6 +1,6 @@
-# fly.toml file generated for movie-site on 2022-11-02T13:12:16-05:00
+# fly.toml file generated for app-two on 2022-11-06T17:42:46-06:00
 
-app = "movie-site"
+app = "app-two"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
