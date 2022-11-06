@@ -4,11 +4,36 @@ this file is where i will define all my routes for my website and run the app
 from crypt import methods
 import flask
 from flask import request
+from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
 import movie_data
+import os
+import requests
+load_dotenv()
 
 app = flask.Flask(__name__)
 app.secret_key = 'secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+db = SQLAlchemy(app)
 
+# all the database stuff
+class Comment(db.Model):
+    '''
+    this is the model of my comment database
+    '''
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(200), unique=True, nullable=False)
+
+    def __repr__(self):
+        '''
+        idk just good to have
+        '''
+        return '<User %r>' % self.comment
+
+with app.app_context():
+    db.create_all()
+
+# these are all my routes
 @app.route("/")
 def first():
     '''
