@@ -8,7 +8,7 @@ run:
 	python3 server.py
 
 proxy:
-	flyctl proxy 5432 -a dallas-demo-db
+	flyctl proxy 5432 -a app-two-db
 
 connect:
-	fly pg connect -a dallas-demo-db
+	fly pg connect -a app-two-db
