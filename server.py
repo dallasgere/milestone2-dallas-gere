@@ -21,6 +21,7 @@ class Comment(db.Model):
     '''
     this is the model of my comment database
     '''
+
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(200), unique=True, nullable=False)
 
@@ -29,6 +30,20 @@ class Comment(db.Model):
         idk just good to have
         '''
         return '<User %r>' % self.comment
+
+class Person(db.Model):
+    '''
+    this is the model of my users database
+    '''
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __repr__(self):
+        '''
+        idk just good to have
+        '''
+        return '<User %r>' % self.username
 
 with app.app_context():
     db.create_all()
