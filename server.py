@@ -49,11 +49,16 @@ with app.app_context():
     db.create_all()
 
 # these are all my routes
+@app.route('/test')
+def test():
+    return [str(person) for person in Person.query.all()]
+
 @app.route("/")
 def first():
     '''
     this is the page users will be prompted with and from this they will be able to login to the webpage
     '''
+
     return flask.render_template('signup.html')
 
 @app.route("/signup", methods=['POST'])
@@ -63,12 +68,16 @@ def signup():
     '''
 
     form_data = flask.request.form
-    username = form_data['username']
-    if username == 'tay':
-        return flask.redirect(flask.url_for('home'))
-    else:
-        flask.flash('username not found')
-        return flask.redirect(flask.url_for('first'))
+    name = form_data['username']
+
+    #if Person.query.filter_by(username = name) is None:
+    new_person = Person(username=name)
+    db.session.add(new_person)
+    db.session.commit()
+    return flask.redirect(flask.url_for('home'))
+    # else:
+    #     flask.flash('account already exist, please login')
+    #     return flask.redirect(flask.url_for('first'))
 
 @app.route("/login_form", methods=['POST', 'GET'])
 def login_form():
@@ -85,8 +94,10 @@ def login():
     '''
 
     login_form_data = flask.request.form
-    username = login_form_data['username']
-    if username == 'tay':
+    name = login_form_data['username']
+    check_person = Person(username=name)
+    if_user_exist = Person.query.filter_by(username=name).first()
+    if if_user_exist is not None:
         return flask.redirect(flask.url_for('home'))
     else:
         return flask.redirect(flask.url_for('login_form'))
