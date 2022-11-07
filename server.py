@@ -69,15 +69,15 @@ def signup():
 
     form_data = flask.request.form
     name = form_data['username']
-
-    #if Person.query.filter_by(username = name) is None:
-    new_person = Person(username=name)
-    db.session.add(new_person)
-    db.session.commit()
-    return flask.redirect(flask.url_for('home'))
-    # else:
-    #     flask.flash('account already exist, please login')
-    #     return flask.redirect(flask.url_for('first'))
+    if_user_exist = Person.query.filter_by(username=name).first()
+    if if_user_exist is None:
+        new_person = Person(username=name)
+        db.session.add(new_person)
+        db.session.commit()
+        return flask.redirect(flask.url_for('home'))
+    else:
+        flask.flash('account already exist, please login')
+        return flask.redirect(flask.url_for('first'))
 
 @app.route("/login_form", methods=['POST', 'GET'])
 def login_form():
