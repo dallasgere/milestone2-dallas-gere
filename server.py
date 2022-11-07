@@ -2,12 +2,13 @@
 this file is where i will define all my routes for my website and run the app
 '''
 from crypt import methods
+import os
 import flask
 from flask import request
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, login_manager
 import movie_data
-import os
 import requests
 load_dotenv()
 
@@ -15,6 +16,16 @@ app = flask.Flask(__name__)
 app.secret_key = 'secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
+
+# the login class and what not
+class AppPerson(UserMixin):
+    '''
+    this is the class that will pertain to the person currently logged in
+    '''
+    id = 0
+
+login_manager = AppPerson()
+
 
 # all the database stuff
 class Comment(db.Model):
