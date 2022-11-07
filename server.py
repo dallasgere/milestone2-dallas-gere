@@ -100,6 +100,7 @@ def login():
     if if_user_exist is not None:
         return flask.redirect(flask.url_for('home'))
     else:
+        flask.flash('you fool!! username does not exist')
         return flask.redirect(flask.url_for('login_form'))
 
 @app.route("/search_movie_form", methods=['POST', 'GET'])

@@ -4,6 +4,15 @@
     </head>
 
     <body>
+        <!--making my flash work if username is wrong-->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {%  for message in messages %}
+                <b>{{message}}</b>
+            {%  endfor %}
+        {% endif %}
+        {% endwith %}
+        
         <form method="POST" action="/signup" class="signup">
             <input type="text" name="username" id="username"/>
             <input type="submit" value="signup"/>
