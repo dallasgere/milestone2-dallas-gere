@@ -1,4 +1,4 @@
-# fly.toml file generated for dallas-movies on 2022-11-06T21:34:29-06:00
+# fly.toml file generated for dallas-movies on 2022-11-07T19:47:58-06:00
 
 app = "dallas-movies"
 kill_signal = "SIGINT"

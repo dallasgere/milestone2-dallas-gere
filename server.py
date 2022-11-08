@@ -6,28 +6,39 @@ import flask
 from flask import request
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin#, login_manager, login_user, LoginManager, login_required, logout_user, current_user
-from flask_bcrypt import Bcrypt
+#from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
+#from flask_bcrypt import Bcrypt
 import movie_data
 import requests
 load_dotenv()
 
 app = flask.Flask(__name__)
 app.secret_key = 'secret'
-bcrypt = Bcrypt(app)
+#bcrypt = Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
 
 # the login stuff
 # login_manager = LoginManager()
 # login_manager.init_app(app)
-# login_manager.login_view = 'login'
+#login_manager.login_view = 'home'
 
-class AppPerson(UserMixin):
-    '''
-    this is the class that will pertain to the person currently logged in
-    '''
-    id = 0
+# class AppPerson(UserMixin):
+#     '''
+#     this is the class that will pertain to the person currently logged in
+#     '''
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), unique=True, nullable=False)
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     '''
+#     returns the object of the user id turned in
+#     '''
+
+#     #return Person.query.get(int(user_id))
+#     return Person.get_id(user_id)
 
 # all the database stuff
 class Comment(db.Model):
@@ -36,6 +47,7 @@ class Comment(db.Model):
     '''
 
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
     comment = db.Column(db.String(200), unique=True, nullable=False)
 
     def __repr__(self):
@@ -44,6 +56,7 @@ class Comment(db.Model):
         '''
         return '<User %r>' % self.comment
 
+#class Person(UserMixin, db.Model):
 class Person(db.Model):
     '''
     this is the model of my users database
@@ -51,6 +64,10 @@ class Person(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.id
 
     def __repr__(self):
         '''
@@ -67,7 +84,18 @@ def test():
     '''
     just a function for testing
     '''
+
     return [str(person) for person in Person.query.all()]
+
+# @app.route('/logout')
+# @login_required
+# def logout():
+#     '''
+#     this is the function that logs out my user
+#     '''
+
+#     logout_user()
+#     return 'you have been logged out'
 
 @app.route("/")
 def first():
@@ -90,6 +118,10 @@ def signup():
         new_person = Person(username=name)
         db.session.add(new_person)
         db.session.commit()
+
+        # trying some login stuff
+        #login_user(name)
+
         return flask.redirect(flask.url_for('home'))
     else:
         flask.flash('account already exist, please login')
@@ -111,9 +143,11 @@ def login():
 
     login_form_data = flask.request.form
     name = login_form_data['username']
-    check_person = Person(username=name)
     if_user_exist = Person.query.filter_by(username=name).first()
-    if if_user_exist is not None:
+    if if_user_exist:
+        # logging the person in
+        person = Person(username=name)
+        #login_user(name)
         return flask.redirect(flask.url_for('home'))
     else:
         flask.flash('you fool!! username does not exist')
@@ -135,8 +169,6 @@ def search_movie_display():
 
     search_movie_form_data = flask.request.form
     movie_name = search_movie_form_data['movie_name']
-
-    #if movie_name == 'movie':
 
     movie_title = movie_name
     movie_id = movie_data.MovieData.searching_for_movie(movie_title)
