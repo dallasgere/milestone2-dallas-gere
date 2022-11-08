@@ -1,6 +1,9 @@
 <html>
     <head>
         <link rel="stylesheet" href={{ url_for('static', filename='index.css') }} />
+        <form action="/logout" method="POST" class="button_group">
+            <input type="submit" value="logout"/>
+        </form>
     </head>
     <body>
         <!--this is the welcome bar-->
@@ -20,7 +23,7 @@
 
         <!--this is the buttons to search for movies and actors and what not-->
         <form action="/search_movie_form" method="POST" class="button_group">
-            <input type="submit" value="search movies"/>
+            <input type="submit" value="search movies">
         </form>
 
         <!--this is displaying all the movie information-->

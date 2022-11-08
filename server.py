@@ -31,28 +31,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login_form'
 
-class AppPerson(UserMixin):
-    '''
-    this is the class that will pertain to the person currently logged in
-    '''
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     '''
-#     returns the object of the user id turned in
-#     '''
-
-#     #return Person.query.get((user_id))
-#     #return Person.get_id(user_id)
-#     pass
-#     #return Person.query.filter_by(user_id).first()
-#     #return Person(username=user_id)
-#     #return Person.get_id((user_id))
-#     #return Person.query.get(int(id))
-
 # all the database stuff
 class Comment(db.Model):
     '''
@@ -115,7 +93,7 @@ def test():
 
     return [str(person) for person in Person.query.all()]
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST', 'GET'])
 @login_required
 def logout():
     '''
@@ -123,7 +101,7 @@ def logout():
     '''
 
     logout_user()
-    return 'you have been logged out'
+    return flask.render_template('logout.html')
 
 @app.route("/")
 def first():
