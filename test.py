@@ -1,44 +1,16 @@
-import json
-import requests
+import flask
+from flask import request
 
-url = "https://en.wikipedia.org/w/api.php"
-title = "Bullet Train movie"
+app = flask.Flask(__name__)
 
-# this will be used to find the page id
-params = {
-    "action": "query",
-    "format": "json",
-    "titles": title,
-    "prop": "links"
-}
+@app.route('/', methods=['POST', 'GET'])
+def home():
 
-response = requests.get(
-    url,
-    params
-)
+    if request.method == 'POST':
+        username = request.form.get('username')
+        comment = request.form.get('comment')
+        return flask.redirect(flask.url_for('comment'))
+    return flask.render_template('comment_form.html')
 
-json_data_id = response.json()
-read_id = json.dumps(json_data_id, indent = 1, sort_keys=True) 
-#print(read_id)
-print("")
-
-# this will be used to find the final url which needs the page id
-parameters = {
-    "action": "query",
-    "format": "json",
-    "titles": title,
-    "prop": "info",
-    "inprop": "url|talkid",
-}
-
-response = requests.get(
-    url,
-    parameters
-)
-
-json_data = response.json()
-read = json.dumps(json_data, indent = 1, sort_keys=True) 
-print(read)
-var = json_data['query']['pages']['-1']['fullurl']
-print("")
-print(var)
+if __name__ == '__main__':
+    app.run(debug=True)
