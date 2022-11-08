@@ -6,7 +6,7 @@ import flask
 from flask import request
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
-#from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 #from flask_bcrypt import Bcrypt
 import movie_data
 import requests
@@ -19,26 +19,30 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
 
 # the login stuff
-# login_manager = LoginManager()
-# login_manager.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 #login_manager.login_view = 'home'
 
-# class AppPerson(UserMixin):
-#     '''
-#     this is the class that will pertain to the person currently logged in
-#     '''
+class AppPerson(UserMixin):
+    '''
+    this is the class that will pertain to the person currently logged in
+    '''
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(80), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     '''
-#     returns the object of the user id turned in
-#     '''
+@login_manager.user_loader
+def load_user(user_id):
+    '''
+    returns the object of the user id turned in
+    '''
 
-#     #return Person.query.get(int(user_id))
-#     return Person.get_id(user_id)
+    #return Person.query.get(int(user_id))
+    #return Person.get_id(user_id)
+    #pass
+    #return Person.query.filter_by(user_id).first()
+    #return Person(username=user_id)
+    return AppPerson.get_id((user_id))
 
 # all the database stuff
 class Comment(db.Model):
@@ -52,12 +56,12 @@ class Comment(db.Model):
 
     def __repr__(self):
         '''
-        idk just good to have
+        returns the stuff
         '''
         return '<User %r>' % self.comment
 
 #class Person(UserMixin, db.Model):
-class Person(db.Model):
+class Person(UserMixin, db.Model):
     '''
     this is the model of my users database
     '''
@@ -87,15 +91,15 @@ def test():
 
     return [str(person) for person in Person.query.all()]
 
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     '''
-#     this is the function that logs out my user
-#     '''
+@app.route('/logout')
+@login_required
+def logout():
+    '''
+    this is the function that logs out my user
+    '''
 
-#     logout_user()
-#     return 'you have been logged out'
+    logout_user()
+    return 'you have been logged out'
 
 @app.route("/")
 def first():
@@ -120,7 +124,7 @@ def signup():
         db.session.commit()
 
         # trying some login stuff
-        #login_user(name)
+        login_user(new_person)
 
         return flask.redirect(flask.url_for('home'))
     else:
@@ -144,10 +148,13 @@ def login():
     login_form_data = flask.request.form
     name = login_form_data['username']
     if_user_exist = Person.query.filter_by(username=name).first()
-    if if_user_exist:
-        # logging the person in
+
+    # logging the person in if authenticated
+    #person = Person(username=name)
+    if if_user_exist is not None:
         person = Person(username=name)
-        #login_user(name)
+        per = AppPerson()
+        login_user(per)
         return flask.redirect(flask.url_for('home'))
     else:
         flask.flash('you fool!! username does not exist')
@@ -195,6 +202,7 @@ def search_movie_display():
     )
 
 @app.route("/home", methods=['POST', 'GET'])
+@login_required
 def home():
     '''
     this function will define my home page and will be part 1 for this project
