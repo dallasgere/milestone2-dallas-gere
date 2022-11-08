@@ -10,7 +10,7 @@ def home():
         username = request.form.get('username')
         comment = request.form.get('comment')
         return flask.redirect(flask.url_for('comment'))
-    return flask.render_template('comment_form.html')
+    return flask.render_template('.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

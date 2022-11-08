@@ -183,6 +183,7 @@ def comment_handler():
     return flask.render_template('comment_handler.html', comment=comment_from_person)
 
 @app.route("/search_movie_form", methods=['POST', 'GET'])
+@login_required
 def search_movie_form():
     '''
     this is the function that allows users to search for movies and redirect to page to display the data
@@ -191,6 +192,7 @@ def search_movie_form():
     return flask.render_template('search_movie_form.html')
 
 @app.route("/search_movie_display", methods=['POST', 'GET'])
+@login_required
 def search_movie_display():
     '''
     this function will check if the value entered is a okay input and then display the movie data
