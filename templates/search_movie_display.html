@@ -3,51 +3,56 @@
         <link rel="stylesheet" href={{ url_for('static', filename='search_movie_display.css') }} />
     </head>
     <body>
-        <!--this is displaying the data for the movie that has been searched-->
-        <p>movie title: {{title}}</p>
-        <img src={{poster}} class="image">
-        <div class = "comment">
-            <!--<h4 class="comment">leave a comment</h4>-->
-            <form action="/comment_handler" method="POST" class="comment">
-                <input type="text" name="movie_name" id="movie_name" placeholder="movie name"/>
-                <textarea rows="25" cols="35" placeholder="your comment" name="comment" id="comment"></textarea>
-                <br>
-                <input type="submit" value="leave a comment"/>
+        <div class="search">
+            <!-- <h3 class="search">back to search page</h3> -->
+            <form action="/search_movie_form" method="POST" class="search">
+                <input type="submit" value="search" class="search"/>
             </form>
         </div>
+
+        <!-- <h3 class="home_button">back to the home page</h3> -->
+        <form action="/home" method="POST" class="home_button">
+            <input type="submit" value="home" class="home_button"/>
+        </form>
+        <!--this is displaying the data for the movie that has been searched-->
+        <h2>movie title: {{title}}</h2>
+        <img src={{poster}} class="image">
         <p>tagline: {{tagline}}</p>
         <p>genre: {{genre}}</p>
         <a class = "wiki" href={{link}}>link to wiki page</a>
         <br>
         <br>
-        <br>
-        <br>
-
-        <div class="comment_display">
-            <h4>comments</h4>
-            {% if comments %}
-                {%  for comment in comments %}
-                    <p>{{comment}}</p>
-                {%  endfor %}
-            {% endif %}
-            <h4>users</h4>
-            {% if users %}
-                {%  for user in users %}
-                    <p>{{user}}</p>
-                {%  endfor %}
-            {% endif %} 
-        </div>
-
-        <div class="search">
-            <h4 class="search">back to search page</h4>
-            <form action="/search_movie_form" method="POST" class="search">
-                <input type="submit" value="search"/>
+        <div class = "comment">
+            <form action="/comment_handler" method="POST" class="comment">
+                <input type="text" name="movie_name" id="movie_name" placeholder="movie name" class="comment"/>
+                <textarea rows="10" cols="20" placeholder="your comment" name="comment" id="comment" class="comment"></textarea>
+                <!-- <input type="text" name="comment" id="comment" placeholder="comment" class="comment"/> -->
+                <input type="text" name="rating" id="rating" placeholder="rating" class="comment"/> <p>out of 10</p>
+                <br>
+                <input type="submit" value="leave a comment" class="comment"/>
             </form>
         </div>
 
-        <h4 class="home_button">back to the home page</h4>
+        <div class="comment_display">
+            <h2>what others had to say</h2>
+            {% if comments %}
+                {%  for i in range(size) %}
+                    <p>"{{comments[i]}}" - {{users[i]}}</p>
+                    <p>rating {{ratings[i]}}/10</p>
+                {%  endfor %}
+            {% endif %}
+        </div>
+
+        <!-- <div class="search">
+            <h3 class="search">back to search page</h3>
+            <form action="/search_movie_form" method="POST" class="search">
+                <input type="submit" value="search" class="search"/>
+            </form>
+        </div>
+
+        <h3 class="home_button">back to the home page</h3>
         <form action="/home" method="POST" class="home_button">
-            <input type="submit" value="home"/>
-        </form>
+            <input type="submit" value="home" class="home_button"/>
+        </form> -->
     </body>
 </html>

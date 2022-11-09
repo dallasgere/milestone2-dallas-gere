@@ -41,6 +41,7 @@ class Comment(db.Model):
     username = db.Column(db.String(80), nullable=False)
     movie_id = db.Column(db.String(80), nullable=False)
     comment = db.Column(db.String(200), nullable=False)
+    rating = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
         '''
@@ -177,8 +178,9 @@ def comment_handler():
     comment_form_data= flask.request.form
     comment = comment_form_data['comment']
     movie_name = comment_form_data['movie_name']
+    rating = comment_form_data['rating']
     movie_id = movie_data.MovieData.searching_for_movie(movie_name)
-    new_comment = Comment(username=current_user.username, movie_id=movie_id, comment=comment)
+    new_comment = Comment(username=current_user.username, movie_id=movie_id, comment=comment, rating=rating)
     db.session.add(new_comment)
     db.session.commit()
 
@@ -220,9 +222,13 @@ def search_movie_display():
 
     comments = []
     users = []
+    ratings = []
     for i in Comment.query.filter_by(movie_id=str(movie_id)):
         comments.append(i.comment)
         users.append(i.username)
+        ratings.append(i.rating)
+
+    size = len(comments)
 
     return flask.render_template(
         "search_movie_display.html",
@@ -232,7 +238,9 @@ def search_movie_display():
         poster = movie_dict["poster"],
         link = movie_dict["link"],
         comments = comments,
-        users = users
+        users = users,
+        ratings = ratings,
+        size = size
     )
 
 @app.route("/home", methods=['POST', 'GET'])
