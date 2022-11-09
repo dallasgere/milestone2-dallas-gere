@@ -173,8 +173,14 @@ def comment_handler():
     '''
     this will handle the comment information
     '''
+
     comment_form_data= flask.request.form
     comment = comment_form_data['comment']
+    movie_name = comment_form_data['movie_name']
+    movie_id = movie_data.MovieData.searching_for_movie(movie_name)
+    new_comment = Comment(username=current_user.username, movie_id=movie_id, comment=comment)
+    db.session.add(new_comment)
+    db.session.commit()
 
     return flask.render_template('comment_handler.html', comment=comment)
 
@@ -212,6 +218,10 @@ def search_movie_display():
         "link": wiki_link
     }
 
+    comments = []
+    # for i in Comment.query.filter_by(movie_id=movie_id):
+    #     comments[i] = i.comment
+
     return flask.render_template(
         "search_movie_display.html",
         title = movie_dict["title"],
@@ -219,6 +229,7 @@ def search_movie_display():
         genre = movie_dict["genre"],
         poster = movie_dict["poster"],
         link = movie_dict["link"],
+        comments = comments
     )
 
 @app.route("/home", methods=['POST', 'GET'])

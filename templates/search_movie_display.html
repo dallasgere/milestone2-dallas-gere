@@ -23,6 +23,12 @@
         <br>
         <br>
 
+        {% if comments %}
+            {%  for comment in comments %}
+                <b>{{comment}}</b>
+            {%  endfor %}
+        {% endif %} 
+
         <div class="search">
             <h4 class="search">back to search page</h4>
             <form action="/search_movie_form" method="POST" class="search">
