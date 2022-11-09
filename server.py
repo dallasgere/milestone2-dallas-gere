@@ -163,14 +163,6 @@ def login():
         flask.flash('you fool!! username does not exist')
         return flask.redirect(flask.url_for('login_form'))
 
-@app.route('/comment_form', methods=['POST', 'GET'])
-def comment_form():
-    '''
-    this is the form that will allow users to add comments
-    '''
-
-    return flask.render_template('comment_form.html')
-
 @app.route('/comment_handler', methods={'POST', 'GET'})
 @login_required
 def comment_handler():
