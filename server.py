@@ -170,6 +170,7 @@ def comment_form():
     return flask.render_template('comment_form.html')
 
 @app.route('/comment_handler', methods={'POST', 'GET'})
+@login_required
 def comment_handler():
     '''
     this will handle the comment information
