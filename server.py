@@ -100,9 +100,9 @@ def logout():
     '''
     this is the function that logs out my user
     '''
-
+    user = current_user.username
     logout_user()
-    return flask.render_template('logout.html')
+    return flask.render_template('logout.html', user=user)
 
 @app.route("/")
 def first():
@@ -219,8 +219,10 @@ def search_movie_display():
     }
 
     comments = []
-    # for i in Comment.query.filter_by(movie_id=movie_id):
-    #     comments[i] = i.comment
+    users = []
+    for i in Comment.query.filter_by(movie_id=str(movie_id)):
+        comments.append(i.comment)
+        users.append(i.username)
 
     return flask.render_template(
         "search_movie_display.html",
@@ -229,7 +231,8 @@ def search_movie_display():
         genre = movie_dict["genre"],
         poster = movie_dict["poster"],
         link = movie_dict["link"],
-        comments = comments
+        comments = comments,
+        user = users
     )
 
 @app.route("/home", methods=['POST', 'GET'])

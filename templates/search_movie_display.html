@@ -23,11 +23,20 @@
         <br>
         <br>
 
-        {% if comments %}
-            {%  for comment in comments %}
-                <b>{{comment}}</b>
-            {%  endfor %}
-        {% endif %} 
+        <div class="comment_display">
+            <h4>comments</h4>
+            {% if comments %}
+                {%  for comment in comments %}
+                    <p>{{comment}}</p>
+                {%  endfor %}
+            {% endif %}
+            <h4>users</h4>
+            {% if users %}
+                {%  for user in users %}
+                    <p>{{user}}</p>
+                {%  endfor %}
+            {% endif %} 
+        </div>
 
         <div class="search">
             <h4 class="search">back to search page</h4>
