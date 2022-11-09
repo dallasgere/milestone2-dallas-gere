@@ -57,11 +57,7 @@ class Person(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    #comment = db.relationship('Comment', backref='person')
-
-    #def get_id(self):
-        #"""Return the email address to satisfy Flask-Login's requirements."""
-       # return id
+    password = db.Column(db.String(80), unique=True, nullable=False)
 
     def __repr__(self):
         '''
@@ -121,9 +117,10 @@ def signup():
 
     form_data = flask.request.form
     name = form_data['username']
+    password = form_data['password']
     if_user_exist = Person.query.filter_by(username=name).first()
     if if_user_exist is None:
-        new_person = Person(username=name)
+        new_person = Person(username=name, password=password)
         db.session.add(new_person)
         db.session.commit()
 
@@ -151,12 +148,17 @@ def login():
 
     login_form_data = flask.request.form
     name = login_form_data['username']
+    password = login_form_data['password']
     if_user_exist = Person.query.filter_by(username=name).first()
 
     # logging the person in if authenticated
     if if_user_exist is not None:
-        login_user(if_user_exist)
-        return flask.redirect(flask.url_for('home'))
+        if if_user_exist.password == password:
+            login_user(if_user_exist)
+            return flask.redirect(flask.url_for('home'))
+        else:
+            flask.flash('you fool!! password does not exist')
+            return flask.redirect(flask.url_for('login_form'))
     else:
         flask.flash('you fool!! username does not exist')
         return flask.redirect(flask.url_for('login_form'))
