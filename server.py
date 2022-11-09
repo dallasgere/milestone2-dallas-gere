@@ -38,8 +38,9 @@ class Comment(db.Model):
     '''
 
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(200), unique=True, nullable=False)
-    #username = db.Column(db.Integer, db.ForeignKey('person.id'), nullable=False)
+    username = db.Column(db.String(80), nullable=False)
+    movie_id = db.Column(db.String(80), nullable=False)
+    comment = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
         '''
@@ -164,8 +165,9 @@ def comment_form():
     '''
     this is the form that will allow users to add comments
     '''
+    comment = flask.request.get('comment')
 
-    return flask.render_template('comment_form.html')
+    return flask.render_template('comment_form.html', comment=comment)
 
 @app.route('/comment_handler', methods={'POST', 'GET'})
 def comment_handler():
