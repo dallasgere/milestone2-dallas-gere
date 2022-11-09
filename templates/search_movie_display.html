@@ -33,7 +33,9 @@
         </div>
 
         <div class="comment_display">
-            <h2>what others had to say</h2>
+            {% if comments %}
+                <h2>what others had to say</h2>
+            {% endif %}
             {% if comments %}
                 {%  for i in range(size) %}
                     <p>"{{comments[i]}}" - {{users[i]}}</p>
