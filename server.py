@@ -165,24 +165,18 @@ def comment_form():
     '''
     this is the form that will allow users to add comments
     '''
-    comment = flask.request.get('comment')
 
-    return flask.render_template('comment_form.html', comment=comment)
+    return flask.render_template('comment_form.html')
 
 @app.route('/comment_handler', methods={'POST', 'GET'})
 def comment_handler():
     '''
     this will handle the comment information
     '''
+    comment_form_data= flask.request.form
+    comment = comment_form_data['comment']
 
-    comment_data = flask.request.form
-    comment_from_person = comment_data['comment']
-    name = comment_data['username']
-    comment = Comment(username=name, comment=comment_from_person)
-    db.session.add(comment)
-    db.session.commit()
-
-    return flask.render_template('comment_handler.html', comment=comment_from_person)
+    return flask.render_template('comment_handler.html', comment=comment)
 
 @app.route("/search_movie_form", methods=['POST', 'GET'])
 @login_required
