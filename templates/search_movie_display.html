@@ -3,17 +3,16 @@
         <link rel="stylesheet" href={{ url_for('static', filename='search_movie_display.css') }} />
     </head>
     <body>
-        <div class="search">
+        <div class="nav">
             <!-- <h3 class="search">back to search page</h3> -->
-            <form action="/search_movie_form" method="POST" class="search">
-                <input type="submit" value="search" class="search"/>
+            <form action="/search_movie_form" method="POST">
+                <input type="submit" value="search" />
+            </form>
+            <form action="/home" method="POST">
+                <input type="submit" value="home"/>
             </form>
         </div>
 
-        <!-- <h3 class="home_button">back to the home page</h3> -->
-        <form action="/home" method="POST" class="home_button">
-            <input type="submit" value="home" class="home_button"/>
-        </form>
         <!--this is displaying the data for the movie that has been searched-->
         <h2>movie title: {{title}}</h2>
         <img src={{poster}} class="image">
@@ -42,17 +41,5 @@
                 {%  endfor %}
             {% endif %}
         </div>
-
-        <!-- <div class="search">
-            <h3 class="search">back to search page</h3>
-            <form action="/search_movie_form" method="POST" class="search">
-                <input type="submit" value="search" class="search"/>
-            </form>
-        </div>
-
-        <h3 class="home_button">back to the home page</h3>
-        <form action="/home" method="POST" class="home_button">
-            <input type="submit" value="home" class="home_button"/>
-        </form> -->
     </body>
 </html>

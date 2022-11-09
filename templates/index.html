@@ -1,31 +1,22 @@
 <html>
     <head>
         <link rel="stylesheet" href={{ url_for('static', filename='index.css') }} />
-        <form action="/logout" method="POST" class="button_group">
-            <input type="submit" value="logout"/>
-        </form>
     </head>
     <body>
         <!--this is the welcome bar-->
         <h1>Dallas's best most amazing movie website in the world</h1>
         <br>
 
-        <!--this is the button menu on the top-->
-        <!--
-        <div class="button_group">
-            <button>search movies</button>
-            <button>search actors</button>
-            <button>search genres</button>
-            <button>see top ten movies</button>
-        </div>
-        <br>
-        -->
-
         <!--this is the buttons to search for movies and actors and what not-->
-        <form action="/search_movie_form" method="POST" class="button_group">
-            <input type="submit" value="search movies">
-        </form>
+        <div class="nav">
+            <form action="/search_movie_form" method="POST">
+                <input type="submit" value="search movies">
+            </form>
 
+            <form action="/logout" method="POST">
+                <input type="submit" value="logout"/>
+            </form>
+        </div>
         <!--this is displaying all the movie information-->
         <p>movie title: {{title}}</p>
         <img src={{poster}} class="image">
