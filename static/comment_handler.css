@@ -1,0 +1,9 @@
+body {
+    font-family: Helvetica;
+    color: rgb(255, 255, 255);
+    background-color: rgb(27, 26, 26);
+    background-image: linear-gradient(rgb(42, 95, 106),rgb(30, 27, 74));
+    font-size: 12;
+    text-align: left;
+    padding: auto;
+}

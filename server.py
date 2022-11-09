@@ -232,7 +232,7 @@ def search_movie_display():
         poster = movie_dict["poster"],
         link = movie_dict["link"],
         comments = comments,
-        user = users
+        users = users
     )
 
 @app.route("/home", methods=['POST', 'GET'])

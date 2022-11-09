@@ -1,9 +1,10 @@
 <html>
     <head>
-
+        <link rel="stylesheet" href={{ url_for('static', filename='search_movie_display.css') }} />
     </head>
 
     <body>
+        <h3>you left comment {{comment}}</h3>
         <div class="search">
             <h4 class="search">back to search page</h4>
             <form action="/search_movie_form" method="POST" class="search">
