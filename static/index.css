@@ -10,7 +10,7 @@ body {
 }
 
 /*aligning all my plain text*/
-p {
+p { 
     text-align: center;
 }
 
@@ -37,7 +37,7 @@ h1 {
     width: 50%;
 }
 
-/* trying to make a good button group */
+/* trying to make a navigation group */
 .nav form {
     background-color: #002b75; /* Green background */
     border: 1px solid rgb(28, 0, 131); /* Green border */
@@ -70,3 +70,39 @@ h1 {
     margin-right: auto;
     width: 11%;
   }
+
+  /* formatting the comment section on the home page */
+  .comment {
+    display: block;
+    justify-content: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* float: right; */
+}
+
+.comment_display {
+    justify-content: left;
+    display: block;
+}
+
+h4 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+h3 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

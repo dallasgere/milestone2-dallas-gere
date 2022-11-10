@@ -18,10 +18,32 @@
             </form>
         </div>
         <!--this is displaying all the movie information-->
-        <p>movie title: {{title}}</p>
+        <h2>MOVIE TITLE: {{title}}</h2>
         <img src={{poster}} class="image">
-        <p>tagline: {{tagline}}</p>
-        <p>genre: {{genre}}</p>
+        <h3>TAGLINE: {{tagline}}</h3>
+        <h3>GENRE: {{genre}}</h3>
         <a class = "wiki" href={{link}}>link to wiki page</a>
+        <br>
+        <br>
+        <div class = "comment">
+            <form action="/comment_handler" method="POST" class="comment">
+                <input type="text" name="movie_name" id="movie_name" placeholder="movie name" class="comment"/>
+                <textarea rows="10" cols="20" placeholder="your comment" name="comment" id="comment" class="comment"></textarea>
+                <input type="text" name="rating" id="rating" placeholder="rating" class="comment"/> <p>out of 10</p>
+                <br>
+                <input type="submit" value="leave a comment" class="comment"/>
+            </form>
+        </div>
+        <div class="comment_display">
+            {% if comments %}
+                <h2>what others had to say</h2>
+            {% endif %}
+            {% if comments %}
+                {%  for i in range(size) %}
+                    <p>"{{comments[i]}}" - {{users[i]}}</p>
+                    <p>rating {{ratings[i]}}/10</p>
+                {%  endfor %}
+            {% endif %}
+        </div>
     </body>
 </html> 

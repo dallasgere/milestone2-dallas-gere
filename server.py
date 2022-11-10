@@ -260,13 +260,28 @@ def home():
         "poster": movie_poster,
         "link": wiki_link
     }
+
+    comments = []
+    users = []
+    ratings = []
+    for i in Comment.query.filter_by(movie_id=str(movie_id)):
+        comments.append(i.comment)
+        users.append(i.username)
+        ratings.append(i.rating)
+
+    size = len(comments)
+
     return flask.render_template(
         "index.html",
         title = movie_dict["title"],
         tagline = movie_dict["tagline"],
         genre = movie_dict["genre"],
         poster = movie_dict["poster"],
-        link = movie_dict["link"]
+        link = movie_dict["link"],
+        comments = comments,
+        users = users,
+        ratings = ratings,
+        size = size
     )
 
 if __name__ == '__main__':
