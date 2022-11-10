@@ -1,8 +1,10 @@
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href={{ url_for('static', filename='logout.css') }} />
+    </head>
     <body>
         <h2>you have been logged out {{user}}</h2>
-        <form action="/login_form" method="POST" class="button_group">
+        <form action="/login_form" method="POST" class="logout">
             <input type="submit" value="log back in"/>
         </form>
     </body>
