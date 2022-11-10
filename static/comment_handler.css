@@ -7,3 +7,17 @@ body {
     text-align: left;
     padding: auto;
 }
+
+  /* Add a background color on hover */
+  .nav form:hover {
+    background-color: #4c00ff;
+  }
+
+  .nav {
+    text-align: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+ 
