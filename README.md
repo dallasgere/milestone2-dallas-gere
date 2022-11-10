@@ -1,5 +1,5 @@
-# project1-your-dallas-gere
-### (https://movie-site.fly.dev "my movie app website!")
+# milestone2-your-dallas-gere
+### (https://dallas-movies.fly.dev "my movie app website!")
 
 ## my technologies, frameworks, api's
 1. language
@@ -9,6 +9,7 @@
     * css - this was used to style my html and make things look better
     * flask - this is how i set up my web server
     * fly.io - this is what was used to deploy my app to the big internet
+    * black formatter - this is the tool we use to format our code better
 3. libraries
     * os - this was used to get my api key from my .env file through my operating system
     * random - this is used to get a random movie from my list of top movies
@@ -51,6 +52,16 @@
     * then it should do everything for you and work!
 
 ## Detailed description of 2+ examples where implementing your project differed from your expectations during project planning.
-1. one thing that differed from how i thought it was going to work was adding comments to the movies. I didnt know how i 
+1. one thing that differed from how i thought it was going to work was adding a database to my project. I thought there was going to be a lot more invovled in this but there was not as much as i had initially anticipated. All i had to do was setup my flask sqlalchemy stuff correctly as well as make a database model, and then fly just did everything else for me. All i had to do was proxy to the database and then i was able to run locally. I was expecting the database part to be the most intensive part of this project but fly and sqlalchemy made it a lot easier than i thought it would be. I thought it was really cool how sql alchemy was able to talk to my database without me having to do sql queries
+2. another thing that worked out differently than i thought was the black formatter. I heard a lot of other people having problems trying to get it set up and i thought it was going to be a big problem. But really i just was able to read the documentation on vscode and it worked really easily and i thought it was a really cool tool. I hate messy code and i love the fact that there is a formatter that will clean everything up for you
 ## Detailed description of 2+ technical issues and how you solved them (your process, what you searched, what resources you used)
-1. The biggest issue that i had with this project was making my flask login features work.  
+1. The biggest issue that i had with this project was making my flask login features work. I had lots of trouble trying to get my user logged in, out, and using the login required decorator. I followed many youtube videos and all the online resources we were given and i just couldnt get it to work. The problem turned out to be that on my login i was making a new instance of my person class and trying to log that in instead of just logging in the user i was checking for. This was a problem because when i made the new user it was not committed to the database and i was just checking if a user who was never in the database was actually there. Also i had a problem with the flask login formatting stuff. 
+    * these were app.config["TESTING"] = False
+    * and @app.before_first_request
+    def init_app():
+    """
+    making sure user is logged out just in case of cookies
+    """
+    logout_user()   
+these made it so that my browser could not remember that the user was logged in through cookies and made it so that the user had to log in everytime. I was able to go to office hours and the professor and a classmate helped me debug and i was able to find the app config stuff on a stack overflow question and after that everything was working.
+2. I was also having a lot of problems just trying to format my pages that displayed the movie information once i introduced the form that allowed users to input comments. I just copied my repo from the first project and built onto it and I think that my html and css from the first project couldve been done better as it was very messy and everything felt more like a blob rather than individual components. I would have made it more modular because in this version if i moved one component then everything would get jumbled up. Eventually through some trial and error and looking for answers on w3 schools and stackoverflow i was able to put all the components together how i wanted them to be and learned more about css and html elements.
